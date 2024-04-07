@@ -1,11 +1,14 @@
-﻿class Program
+﻿using System;
+
+class Program
 {
     static void Main(string[] args)
     {
         LagerstatusManager lagerManager = new LagerstatusManager();
-
+        LagerstatusFilManager filManager = new LagerstatusFilManager();
+        
         bool running = true;
-
+       
         while (running)
         {
             Console.Clear();
@@ -15,7 +18,8 @@
             Console.WriteLine("3. Ændr eksisterende spil");
             Console.WriteLine("4. Søg efter spil");
             Console.WriteLine("5. Ændr en pris");
-            Console.WriteLine("6. Afslut");
+            Console.WriteLine("6. Gem og udskriv lagerlisten");
+            Console.WriteLine("7. Afslut");
 
             Console.Write("Indtast dit valg: ");
             string userInput = Console.ReadLine();
@@ -24,7 +28,15 @@
             {
                 case "1":
                     lagerManager.VisLagerstatus();
-                    break;
+                    Console.WriteLine("Vil du udskrive lagerstatusen til en fil? (ja/nej)");
+                    string gemTilFil = Console.ReadLine().ToLower();
+                    if (gemTilFil == "ja")
+                    {
+                        Console.Write("Indtast filnavn: ");
+                        string Filnavn = Console.ReadLine();
+                        filManager.GemLagerstatusTilFil(lagerManager.GetLagerStatusListe(), Filnavn);
+                    }
+                        break;
                 case "2":
                     Console.Write("Indtast navnet på spillet: ");
                     string nytSpilNavn = Console.ReadLine();
@@ -66,6 +78,11 @@
                     lagerManager.ÆndrPris(spilnavn, version, fastgjortPris);
                     break;
                 case "6":
+                    Console.Write("Indtast filnavn: ");
+                    string filnavn = Console.ReadLine();
+                    filManager.GemLagerstatusTilFil(lagerManager.GetLagerStatusListe(), filnavn);
+                    break;
+                case "7":
                     running = false;
                     break;
                 default:
