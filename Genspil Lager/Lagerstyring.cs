@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class LagerstatusManager
 {
-    private List<Lagerstatus> lagerstatusListe;
+    public List<Lagerstatus> lagerstatusListe;
 
     public LagerstatusManager()
     {
@@ -11,6 +11,11 @@ public class LagerstatusManager
 
         // Tilføj initialdata til lagerstatuslisten
         TilføjInitialData();
+    }
+
+    public List<Lagerstatus> GetLagerStatusListe()
+    {
+        return lagerstatusListe;
     }
 
     private void TilføjInitialData()
